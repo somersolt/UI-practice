@@ -1,0 +1,5 @@
+Id,Type,Name,Desc,Value,Cost,Icon
+Item1,Weapon,Item1Name,Item1Desc,30,150,Icon_Sword01
+Item2,Equip,Item2Name,Item2Desc,15,90,Icon_Shield01
+Item3,Weapon,Item3Name,Item3Desc,20,120,Icon_Bow01
+Item4,consumable,Item4Name,Item4Desc,50,40,Icon_Star02
