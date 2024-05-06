@@ -1,16 +1,17 @@
 using CsvHelper;
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class ItemData
 {
+    public static readonly string FormatIconPath = "Icon/Item/{0}";
 
-    public static readonly string FormatIconPath = "Icons/Item/{0}";
     public string Id { get; set; }
     public string Type { get; set; }
     public string Name { get; set; }
@@ -19,19 +20,11 @@ public class ItemData
     public int Cost { get; set; }
     public string Icon { get; set; }
 
-    public string GetType
-    {
-        get
-        {
-            return DataTableManager.GetStringTable().Get(Type);
-        }
-
-    }
     public string GetName
     {
         get
         {
-            return DataTableManager.GetStringTable().Get(Name);
+            return DataTableMgr.GetStringTable().Get(Name);
         }
     }
 
@@ -39,11 +32,10 @@ public class ItemData
     {
         get
         {
-            return DataTableManager.GetStringTable().Get(Desc);
+            return DataTableMgr.GetStringTable().Get(Desc);
         }
-
     }
-
+    [JsonIgnore]
     public Sprite GetSprite
     {
         get
@@ -57,9 +49,10 @@ public class ItemData
         return $"{Id}: {Type} / {GetName} / {GetDesc} / {Value} / {Cost} / {GetSprite}";
     }
 }
+
 public class ItemTable : DataTable
 {
-    private Dictionary<string, ItemData> table = new Dictionary<string, ItemData> ();
+    private Dictionary<string, ItemData> table = new Dictionary<string, ItemData>();
 
     public List<string> AllItemIds
     {
@@ -72,14 +65,16 @@ public class ItemTable : DataTable
     public ItemData Get(string id)
     {
         if (!table.ContainsKey(id))
-        { return null; }
+            return null;
+
         return table[id];
     }
+
     public override void Load(string path)
     {
         path = string.Format(FormatPath, path);
 
-        TextAsset textAsset = Resources.Load<TextAsset>(path);
+        var textAsset = Resources.Load<TextAsset>(path);
 
         using (var reader = new StringReader(textAsset.text))
         using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))

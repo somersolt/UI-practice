@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using Unity.VisualScripting;
+using System.Linq;
 using UnityEngine;
 
 public class StringTable : DataTable
@@ -18,15 +18,17 @@ public class StringTable : DataTable
 
     public override void Load(string path)
     {
-        table.Clear();
         path = string.Format(FormatPath, path);
-        TextAsset textAsset = Resources.Load<TextAsset>(path);
- 
+
+        table.Clear();
+
+        var textAsset = Resources.Load<TextAsset>(path);
+        //Debug.Log(textAsset.text);
 
         using (var reader = new StringReader(textAsset.text))
         using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
-            var records = csvReader.GetRecords<StringTable.Data>();
+            var records = csvReader.GetRecords<Data>();
             foreach (var record in records)
             {
                 table.Add(record.Id, record.String);

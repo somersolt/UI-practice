@@ -1,0 +1,21 @@
+﻿Id,String
+HELLO,안녕
+BYE,잘가
+YOU DIE,너 죽음
+TITLE,좀비 서바이벌
+Item1Name,검
+Item2Name,방패
+Item3Name,활 
+Item4Name,물약 
+Item1Desc,이것은 검이다.
+Item2Desc,이것은 방패다.
+Item3Desc,이것은 활이다.
+Item4Desc,이것은 물약이다.
+Char1Name,성기사이즈킹
+Char2Name,무릎에화살
+Char3Name,법뻔뻔
+Char4Name,힐받으면내남자
+Char1Desc,근거리 방어형
+Char2Desc,원거리 견제형
+Char3Desc,원거리 화력형
+Char4Desc,원거리 지원형

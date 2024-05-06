@@ -1,0 +1,5 @@
+Id,Name,Desc,Jop,Icon
+Char1,Char1Name,Char1Desc,Knight,SampleCharacter_Knight
+Char2,Char2Name,Char2Desc,Archer,SampleCharacter_Archer
+Char3,Char3Name,Char3Desc,Witch,SampleCharacter_Witch
+Char4,Char4Name,Char4Desc,Bard,SampleCharacter_Bard
