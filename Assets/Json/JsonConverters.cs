@@ -12,7 +12,7 @@ public class SaveItemDataConverter : JsonConverter<SaveItemData>
         var data = new SaveItemData();
         JObject jObj = JObject.Load(reader);
         data.instanceId = (int)jObj["instanceId"];
-        var itemId = (string)jObj["dataId"];
+        var itemId = (string)jObj["Id"];
         data.data = DataTableMgr.Get<ItemTable>(DataTableIds.Item).Get(itemId);
         data.customOrder = (int)jObj["customOrder"];
         data.creationTime = (System.DateTime)jObj["creationTime"];
@@ -25,7 +25,7 @@ public class SaveItemDataConverter : JsonConverter<SaveItemData>
         writer.WriteStartObject();
         writer.WritePropertyName("instanceId");
         writer.WriteValue(value.instanceId);
-        writer.WritePropertyName("dataId");
+        writer.WritePropertyName("Id");
         writer.WriteValue(value.data.Id);
         writer.WritePropertyName("customOrder");
         writer.WriteValue(value.customOrder);
@@ -36,7 +36,76 @@ public class SaveItemDataConverter : JsonConverter<SaveItemData>
 
 
 }
+public class SaveCharDataConverter : JsonConverter<SaveCharacterData>
+{
+    public override SaveCharacterData ReadJson(JsonReader reader, Type objectType, SaveCharacterData existingValue, bool hasExistingValue, JsonSerializer serializer)
+    {
+        var data = new SaveCharacterData();
+        JObject jObj = JObject.Load(reader);
+        data.instanceId = (int)jObj["instanceId"];
+        var itemId = (string)jObj["charId"];
+        data.data = DataTableMgr.Get<CharacterTable>(DataTableIds.character).Get(itemId);
+        data.isEmpty = (bool)jObj["isEmpty"];
+        data.Level = (int)jObj["Level"];
+        data.exp = (int)jObj["exp"];
+        data.Attack = (int)jObj["Attack"];
+        data.Diffence = (int)jObj["Diffence"];
+        if (jObj["Equip1"] != null)
+        {
+            var equipItem1 = (string)jObj["Equip1"];
+            data.equip1 = DataTableMgr.Get<ItemTable>(DataTableIds.Item).Get(equipItem1);
+        }
+        if (jObj["Equip2"] != null)
+        {
+            var equipItem2 = (string)jObj["Equip2"];
+            data.equip2 = DataTableMgr.Get<ItemTable>(DataTableIds.Item).Get(equipItem2);
+        }
+        if (jObj["Equip3"] != null)
+        {
+            var equipItem3 = (string)jObj["Equip3"];
+            data.equip3 = DataTableMgr.Get<ItemTable>(DataTableIds.Item).Get(equipItem3);
+        }
+        return data;
+    }
 
+
+    public override void WriteJson(JsonWriter writer, SaveCharacterData value, JsonSerializer serializer)
+    {
+        writer.WriteStartObject();
+        writer.WritePropertyName("instanceId");
+        writer.WriteValue(value.instanceId);
+        writer.WritePropertyName("charId");
+        writer.WriteValue(value.data.Id);
+        writer.WritePropertyName("isEmpty");
+        writer.WriteValue(value.isEmpty);
+        writer.WritePropertyName("Level");
+        writer.WriteValue(value.Level);
+        writer.WritePropertyName("exp");
+        writer.WriteValue(value.exp);
+        writer.WritePropertyName("Attack");
+        writer.WriteValue(value.Attack);
+        writer.WritePropertyName("Diffence");
+        writer.WriteValue(value.Diffence);
+        if (value.equip1 != null)
+        {
+            writer.WritePropertyName("Equip1");
+            writer.WriteValue(value.equip1.Id);
+        }
+        if (value.equip2 != null)
+        {
+            writer.WritePropertyName("Equip2");
+            writer.WriteValue(value.equip2.Id);
+        }
+        if (value.equip3 != null)
+        {
+            writer.WritePropertyName("Equip3");
+            writer.WriteValue(value.equip3.Id);
+        }
+        writer.WriteEndObject();
+    }
+
+
+}
 
 public class Vector3Converter : JsonConverter<Vector3>
 {
@@ -69,7 +138,7 @@ public class QuaternionConverter : JsonConverter<Quaternion>
 {
     public override Quaternion ReadJson(JsonReader reader, Type objectType, Quaternion existingValue, bool hasExistingValue, JsonSerializer serializer)
     {
-        Quaternion rot  = Quaternion.identity;
+        Quaternion rot = Quaternion.identity;
         JObject jObj = JObject.Load(reader);
         rot.x = (float)jObj["X"];
         rot.y = (float)jObj["Y"];

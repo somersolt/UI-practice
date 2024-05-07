@@ -66,6 +66,7 @@ public static class SaveLoadSystem
             serializer.Formatting = Formatting.Indented;
             serializer.TypeNameHandling = TypeNameHandling.All;
             serializer.Converters.Add(new SaveItemDataConverter());
+            serializer.Converters.Add(new SaveCharDataConverter());
             serializer.Serialize(writer, CurrSaveData);
         }
 
@@ -91,6 +92,7 @@ public static class SaveLoadSystem
             serializer.Formatting = Formatting.Indented;
             serializer.TypeNameHandling = TypeNameHandling.All;
             serializer.Converters.Add(new SaveItemDataConverter());
+            serializer.Converters.Add(new SaveCharDataConverter());
             data = serializer.Deserialize<SaveData>(reader);
         }
 

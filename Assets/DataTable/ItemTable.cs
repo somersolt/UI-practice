@@ -35,7 +35,6 @@ public class ItemData
             return DataTableMgr.GetStringTable().Get(Desc);
         }
     }
-    [JsonIgnore]
     public Sprite GetSprite
     {
         get

@@ -33,7 +33,6 @@ public class CharacterData
             return DataTableMgr.GetStringTable().Get(Desc);
         }
     }
-    [JsonIgnore]
     public Sprite GetSprite
     {
         get
